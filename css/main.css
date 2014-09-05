@@ -5,3 +5,22 @@ html {
   -o-background-size: cover;
   background-size: cover;
 }
+
+.navbar2 {
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	right: 0;
+	left: auto;
+	top: 100%;
+	z-index: 1000;
+	float: right;
+	min-width: 100px;
+	margin-top: 70px;
+	margin-right: 150px;
+}
+
+.obutton {
+	background: none;
+	border: none;
+}
