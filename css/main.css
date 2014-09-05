@@ -14,10 +14,9 @@ html {
 	left: auto;
 	top: 100%;
 	z-index: 1000;
-	float: right;
-	min-width: 100px;
-	margin-top: 70px;
-	margin-right: 150px;
+	float: left;	
+	margin-top: 10%;
+	margin-left: 35%;	
 }
 
 .obutton {
