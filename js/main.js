@@ -30,4 +30,8 @@ $(function () {
         window.location = obf1(obf0()) + obf2();
     });
 
+    $('#biz_card').mouseover( function () {
+       // ivan.golubev.bc.qr.svg 
+    });    
+
 });

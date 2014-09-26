@@ -1,0 +1,15 @@
+BEGIN:VCARD
+VERSION:3.0
+PRODID:-//Apple Inc.//Mac OS X 10.9.4//EN
+N:Golubev;Ivan;;;
+FN:Ivan Golubev
+ORG:Electrotechnical University;
+EMAIL;type=INTERNET;type=HOME;type=pref:golubev.ivan@ieee.org
+TEL;type=CELL;type=VOICE;type=pref:8-905-2100780
+item1.URL;type=pref:ivango.net
+item1.X-ABLabel:_$!<HomePage>!$_
+BDAY:1987-08-27
+IMPP;X-SERVICE-TYPE=Skype;type=HOME;type=pref:skype:live:ivan.golubev.spb
+UID:94ccb98b-adcf-4c68-9448-74d24b122880
+X-ABUID:94CCB98B-ADCF-4C68-9448-74D24B122880:ABPerson
+END:VCARD
