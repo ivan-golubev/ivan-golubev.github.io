@@ -49,6 +49,6 @@ $(function () {
     $("#w42").tooltip({placement : 'bottom', title: "Contact by email", container: '#w42'});
     $("#bizcard").tooltip({placement : 'bottom', title: "Get business card", container: '#bizcard'});
     $("#linkedin").tooltip({placement : 'bottom', title: "Find me on LinkedIn", container: '#linkedin'});    
-    $("#skype").tooltip({placement : 'bottom', title: "Contact by skype", container: '#skype'}); 
+    $("#skype").tooltip({placement : 'bottom', title: "Contact by Skype", container: '#skype'}); 
 
 });

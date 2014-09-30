@@ -35,12 +35,21 @@ p {
 }
 
 .logofont {
-	font-family: 'Josefin Slab', serif;
-	font-size: 65px;	
+	font-family: 'Josefin Slab', serif, bold;
+	font-size: 65px;				
+}
+
+.yellow {
+	color: #fffeca;
 }
 
 .logofont_small {
 	font-family: 'Josefin Slab', serif;
-	font-size: 45px;
+	font-size: 45px;	
+}
+
+.tooltip.bottom .tooltip-inner {
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;    
+    letter-spacing: 1px;
 }
 
