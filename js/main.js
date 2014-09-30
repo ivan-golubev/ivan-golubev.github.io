@@ -35,10 +35,8 @@ $(function () {
     }
 
     function obf3() {
-        return "skype:" 
+        return "skype:live:" 
         + ["spb", [103, 111, 108, 117, 98, 101, 118].map(obf4).join(""), "ivan"].reverse().join(".") 
-        + String.fromCharCode(64) 
-        + [[103, 109, 97, 105, 108].map(obf4).join(""), [99, 111, 109].map(obf4).join("")].join(".") 
         + "?chat";
     }
 
