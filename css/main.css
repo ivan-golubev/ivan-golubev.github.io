@@ -20,7 +20,7 @@ p {
 	top: 100%;
 	z-index: 1000;
 	float: left;	
-	margin-top: 9%;
+	margin-top: 5%;
 	margin-left: 35%;	
 }
 
@@ -30,6 +30,17 @@ p {
 }
 
 .credits {
-	margin-top: 350px;
+	margin-top: 250px;
 	margin-left: 160px;
 }
+
+.logofont {
+	font-family: 'Josefin Slab', serif;
+	font-size: 65px;	
+}
+
+.logofont_small {
+	font-family: 'Josefin Slab', serif;
+	font-size: 45px;
+}
+
