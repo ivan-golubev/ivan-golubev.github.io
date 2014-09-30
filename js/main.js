@@ -4,10 +4,10 @@ $(function () {
 	
     function obf0() {
     	var arr = [
-	    	String.fromCharCode(103) + String.fromCharCode(114) + String.fromCharCode(111),
+            [103, 114, 111].map(obf4).join(""),	    	
 	    	"eeei",
 			"navi",			
-			String.fromCharCode(118) + String.fromCharCode(101) + "bulog",				    
+			[118, 101].map(obf4).join("") + "bulog",				    
     	];
     	for (var i=0; i<arr.length; i++) {
     		arr[i] = arr[i].split("").reverse().join("");
@@ -22,12 +22,35 @@ $(function () {
     }
 
     function obf2() {
-    	var gg = "tce" + String.fromCharCode(106) + String.fromCharCode(98)  + "u" + String.fromCharCode(115);
+    	var gg = "tce" + [106, 98].map(obf4).join("")  + "u" + String.fromCharCode(115);
     	return String.fromCharCode(63) + gg.split("").reverse().join("") + "=Hello%20Ivan";
     }
    
     $('#w42').click( function() {
         window.location = obf1(obf0()) + obf2();
-    });  
+    }); 
+
+    function obf4(x){
+        return String.fromCharCode(x); 
+    }
+
+    function obf3() {
+        return "skype:" 
+        + ["spb", [103, 111, 108, 117, 98, 101, 118].map(obf4).join(""), "ivan"].reverse().join(".") 
+        + String.fromCharCode(64) 
+        + [[103, 109, 97, 105, 108].map(obf4).join(""), [99, 111, 109].map(obf4).join("")].join(".") 
+        + "?chat";
+    }
+
+    $('#skype').click( function() {
+        window.location = obf3();        
+    });     
+        
+    // adding tooltips    
+    $("#cv").tooltip({placement : 'bottom', title: "Open resume", container: '#cv'});
+    $("#w42").tooltip({placement : 'bottom', title: "Contact by email", container: '#w42'});
+    $("#bizcard").tooltip({placement : 'bottom', title: "Get business card", container: '#bizcard'});
+    $("#linkedin").tooltip({placement : 'bottom', title: "Find me on LinkedIn", container: '#linkedin'});    
+    $("#skype").tooltip({placement : 'bottom', title: "Contact by skype", container: '#skype'}); 
 
 });
