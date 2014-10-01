@@ -14,11 +14,11 @@ p {
 }
 
 #img_bg { 
-  margin-left: auto;
+/*  margin-left: auto;
   margin-right: auto;
-  width: 70%;
-  max-width: 600px;
-  max-height: 700px;
+  width: 70%;*/
+/*  max-width: 600px;
+  max-height: 700px;*/
 /*  margin-left: 15%;
   margin-right: 15%;*/    
   background: url("../img/bg.jpg") no-repeat center top; 
