@@ -1,7 +1,9 @@
-html {
-  background: url("../img/bg_linen.png") repeat fixed;  
-  min-width:  400px;
-  min-height: 440px;
+html { 
+  background: url("../img/bg.jpg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 p {
@@ -9,38 +11,17 @@ p {
 	margin-bottom: 0px;
 }
 
-#container {
-	background: url("../img/bg_linen.png") repeat fixed;  
-}
-
-#img_bg { 
-/*  margin-left: auto;
-  margin-right: auto;
-  width: 70%;*/
-/*  max-width: 600px;
-  max-height: 700px;*/
-/*  margin-left: 15%;
-  margin-right: 15%;*/    
-  background: url("../img/bg.jpg") no-repeat center top; 
-    /* fixed */
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../img/bg.jpg',     sizingMethod='scale');
-  -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../img/bg.jpg', sizingMethod='scale');
-}
-
-#navbar2 {
+.navbar2 {
 	position: relative;
 	display: inline-block;
 	vertical-align: middle;
 	right: 0;
 	left: auto;
 	top: 100%;
-	z-index: 1000;	
-	margin-top: 10%;
-	margin-left: 55%;		
+	z-index: 1000;
+	float: left;	
+	margin-top: 5%;
+	margin-left: 35%;	
 }
 
 .obutton {
@@ -49,21 +30,22 @@ p {
 }
 
 .credits {
-	margin-top: 200px;
-	margin-left: 25px;	
-	color: black;
+	margin-top: 250px;
+	margin-left: 160px;
 }
 
 .logofont {
 	font-family: 'Josefin Slab', serif, bold;
-	font-size: 65px;	
-	color: #fffeca;			
+	font-size: 65px;				
+}
+
+.yellow {
+	color: #fffeca;
 }
 
 .logofont_small {
 	font-family: 'Josefin Slab', serif;
 	font-size: 45px;	
-	color: #fffeca;		
 }
 
 .tooltip.bottom .tooltip-inner {
