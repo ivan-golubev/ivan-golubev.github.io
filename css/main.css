@@ -36,7 +36,8 @@ p {
 
 .logofont {
 	font-family: 'Josefin Slab', serif, bold;
-	font-size: 65px;				
+	font-size: 65px;
+	margin-left: 20px;				
 }
 
 .yellow {
