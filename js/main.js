@@ -52,7 +52,7 @@ $(function () {
     $("#skype").tooltip({placement : 'bottom', title: "Contact by Skype", container: '#skype'}); 
     
     $('#tlt').textillate({
-        initialDelay: 50,
+        initialDelay: 150,
         in: { effect: 'fadeInLeft', delay: 50 } 
     });
 
