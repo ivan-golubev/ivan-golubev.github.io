@@ -50,5 +50,10 @@ $(function () {
     $("#bizcard").tooltip({placement : 'bottom', title: "Get business card", container: '#bizcard'});
     $("#linkedin").tooltip({placement : 'bottom', title: "Find me on LinkedIn", container: '#linkedin'});    
     $("#skype").tooltip({placement : 'bottom', title: "Contact by Skype", container: '#skype'}); 
+    
+    $('#tlt').textillate({
+        initialDelay: 50,
+        in: { effect: 'fadeInLeft', delay: 50 } 
+    });
 
 });
