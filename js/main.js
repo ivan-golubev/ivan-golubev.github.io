@@ -1,6 +1,18 @@
 $(function () {
 
-    "use strict";    	
+    "use strict";  
+
+    function onHighResBgLoaded() {
+        $('html').addClass('html_high_res'); 
+        $('#tlt').textillate({
+            initialDelay: 400,
+            in: { effect: 'fadeInLeft', delay: 50 } 
+        });
+    }
+
+    $.cacheImage('img/bg_high_res.jpg', {
+            load: function (e) { onHighResBgLoaded(); }        
+    });	
 	
     function obf0() {
     	var arr = [
@@ -49,11 +61,6 @@ $(function () {
     $("#w42").tooltip({placement : 'bottom', title: "Contact by email", container: '#w42'});
     $("#bizcard").tooltip({placement : 'bottom', title: "Get business card", container: '#bizcard'});
     $("#linkedin").tooltip({placement : 'bottom', title: "Find me on LinkedIn", container: '#linkedin'});    
-    $("#skype").tooltip({placement : 'bottom', title: "Contact by Skype", container: '#skype'}); 
-    
-    $('#tlt').textillate({
-        initialDelay: 300,
-        in: { effect: 'fadeInLeft', delay: 50 } 
-    });
+    $("#skype").tooltip({placement : 'bottom', title: "Contact by Skype", container: '#skype'});     
 
 });
