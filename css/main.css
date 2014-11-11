@@ -11,6 +11,10 @@ p {
 	margin-bottom: 0px;
 }
 
+.left_mg {
+	margin-left: 3px;
+}
+
 .navbar2 {
 	position: relative;
 	display: inline-block;
@@ -21,36 +25,44 @@ p {
 	z-index: 1000;
 	float: left;	
 	margin-top: 5%;
-	margin-left: 35%;	
+	margin-left: 5%;
+	color: #014d89;	
 }
 
 .obutton {
 	background: none;
 	border: none;
+	font-family: 'Josefin Slab', serif;
+	letter-spacing: 1px;
+	font-size: 18px;
+	color: #ecf0ef;
+}
+
+.main_label {
+	margin-top: 105px;
 }
 
 .credits {
 	margin-top: 250px;
-	margin-left: 160px;
+	margin-left: 20px;
 }
 
 .logofont {
 	font-family: 'Josefin Slab', serif, bold;
 	font-size: 65px;
 	margin-left: 20px;				
-}
-
-.yellow {
-	color: #fffeca;
+	color: #ecf0ef;	
 }
 
 .logofont_small {
 	font-family: 'Josefin Slab', serif;
-	font-size: 45px;	
+	font-size: 45px;
+	color: #ecf0ef;	
 }
 
 .tooltip.bottom .tooltip-inner {
-    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;    
+    font-family: 'Josefin Slab', serif, bold;
+    font-size: 18px;   
     letter-spacing: 1px;
 }
 
