@@ -71,9 +71,14 @@ p {
 .main_label_small {
   margin-top: 50px;
 }
-.credits {
+.bottom_box {
   margin-top: 250px;
   margin-left: 20px;
+}
+.credits {
+  margin-top: 25px;
+  position: absolute;
+  right: 0px;
 }
 .logofont {
   font-family: 'Josefin Slab', serif, bold;
