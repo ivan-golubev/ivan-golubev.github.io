@@ -1,76 +1,65 @@
-html { 
-  background: url("../img/bg.jpg") no-repeat center center fixed; 
+html {
+  background: url("../img/bg.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
 }
-
 .html_high_res {
-  background: url("../img/bg_high_res.jpg") no-repeat center center fixed; 
+  background: url("../img/bg_high_res.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
 }
-
-p {
-	text-align: left;
-	margin-bottom: 0px;
-}
-
 .left_mg {
-	margin-left: 3px;
+  margin-left: 3px;
 }
-
+p {
+  text-align: left;
+  margin-bottom: 0px;
+}
 .navbar2 {
-	position: relative;
-	display: inline-block;
-	vertical-align: middle;
-	right: 0;
-	left: auto;
-	top: 100%;
-	z-index: 1000;
-	float: left;	
-	margin-top: 5%;
-	margin-left: 5%;
-	color: #014d89;	
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  right: 0;
+  left: auto;
+  top: 100%;
+  z-index: 1000;
+  float: left;
+  margin-top: 5%;
+  margin-left: 5%;
+  color: #014d89;
 }
-
 .obutton {
-	background: none;
-	border: none;
-	font-family: 'Josefin Slab', serif;
-	letter-spacing: 1px;
-	font-size: 18px;
-	color: #ecf0ef;
+  background: none;
+  border: none;
+  font-family: 'Josefin Slab', serif;
+  letter-spacing: 1px;
+  font-size: 18px;
+  color: #ecf0ef;
 }
-
 .main_label {
-	margin-top: 105px;
+  margin-top: 105px;
 }
-
 .credits {
-	margin-top: 250px;
-	margin-left: 20px;
+  margin-top: 250px;
+  margin-left: 20px;
 }
-
 .logofont {
-	font-family: 'Josefin Slab', serif, bold;
-	font-size: 65px;
-	margin-left: 20px;				
-	color: #ecf0ef;	
+  font-family: 'Josefin Slab', serif, bold;
+  font-size: 65px;
+  margin-left: 20px;
+  color: #ecf0ef;
 }
-
 .logofont_small {
-	font-family: 'Josefin Slab', serif;
-	font-size: 45px;
-	color: #ecf0ef;	
+  font-family: 'Josefin Slab', serif;
+  font-size: 45px;
+  color: #ecf0ef;
 }
-
 .tooltip.bottom .tooltip-inner {
-    font-family: 'Josefin Slab', serif, bold;
-    font-size: 18px;   
-    letter-spacing: 1px;
+  font-family: 'Josefin Slab', serif, bold;
+  font-size: 18px;
+  letter-spacing: 1px;
 }
-
