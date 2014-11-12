@@ -61,6 +61,21 @@ $(function () {
     $("#w42").tooltip({placement : 'bottom', title: "Contact by email", container: '#w42'});
     $("#bizcard").tooltip({placement : 'bottom', title: "Get business card", container: '#bizcard'});
     $("#linkedin").tooltip({placement : 'bottom', title: "Find me on LinkedIn", container: '#linkedin'});    
-    $("#skype").tooltip({placement : 'bottom', title: "Contact by Skype", container: '#skype'});     
+    $("#skype").tooltip({placement : 'bottom', title: "Contact by Skype", container: '#skype'}); 
+
+    $( window ).resize(function() {
+        var width = $( window ).width();
+        var height = $( window ).height();
+
+        if ( width < 500) {
+           // $('logofont').animate({"font-size":"24px"});
+           // $('logofont').hide(); 
+           // $('logofont_small').addClass('logofont_small_phone'); 
+        } else {
+           // $('logofont').removeClass('logofont_phone'); 
+           // $('logofont_small').removeClass('logofont_small_phone');  
+        }
+        
+    });    
 
 });
