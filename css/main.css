@@ -110,3 +110,7 @@ p {
 .stButton .stMainServices {
   height: 24px !important;
 }
+.fbalign {
+  position: relative;
+  top: -4px;
+}
