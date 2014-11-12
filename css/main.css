@@ -1,12 +1,12 @@
 html {
-  background: url("../img/bg.jpg") no-repeat center center fixed;
+  background: url('../img/bg.jpg') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
 }
 .html_high_res {
-  background: url("../img/bg_high_res.jpg") no-repeat center center fixed;
+  background: url('../img/bg_high_res.jpg') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -32,6 +32,21 @@ p {
   margin-left: 5%;
   color: #014d89;
 }
+.navbar2_small {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  right: 0;
+  left: auto;
+  top: 100%;
+  z-index: 1000;
+  float: left;
+  margin-top: 5%;
+  margin-left: 5%;
+  color: #014d89;
+  margin-top: 1%;
+  margin-left: 1%;
+}
 .obutton {
   background: none;
   border: none;
@@ -40,8 +55,21 @@ p {
   font-size: 18px;
   color: #ecf0ef;
 }
+.obutton_small {
+  background: none;
+  border: none;
+  font-family: 'Josefin Slab', serif;
+  letter-spacing: 1px;
+  font-size: 18px;
+  color: #ecf0ef;
+  letter-spacing: 0px;
+  font-size: 12px;
+}
 .main_label {
   margin-top: 105px;
+}
+.main_label_small {
+  margin-top: 50px;
 }
 .credits {
   margin-top: 250px;
@@ -50,13 +78,24 @@ p {
 .logofont {
   font-family: 'Josefin Slab', serif, bold;
   font-size: 65px;
-  margin-left: 20px;
   color: #ecf0ef;
 }
-.logofont_small {
+.logofont2 {
   font-family: 'Josefin Slab', serif;
   font-size: 45px;
   color: #ecf0ef;
+}
+.logofont_small {
+  font-family: 'Josefin Slab', serif, bold;
+  font-size: 65px;
+  color: #ecf0ef;
+  font-size: 30px;
+}
+.logofont2_small {
+  font-family: 'Josefin Slab', serif;
+  font-size: 45px;
+  color: #ecf0ef;
+  font-size: 18px;
 }
 .tooltip.bottom .tooltip-inner {
   font-family: 'Josefin Slab', serif, bold;

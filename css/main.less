@@ -1,14 +1,14 @@
 .cover(@file) {
-	@img-root: "../img/";	
-	background: url("@{img-root}@{file}") no-repeat center center fixed; 
+	@img-root: '../img/';	
+	background: url('@{img-root}@{file}') no-repeat center center fixed; 
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
 }
 
-html { .cover( "bg.jpg" ); }
-.html_high_res { .cover( "bg_high_res.jpg" ); }
+html { .cover( 'bg.jpg' ); }
+.html_high_res { .cover( 'bg_high_res.jpg' ); }
 .left_mg { margin-left: 3px; }
 
 p {
@@ -30,6 +30,12 @@ p {
 	color: #014d89;	
 }
 
+.navbar2_small {
+	.navbar2;
+	margin-top: 1%;
+	margin-left: 1%;
+}
+
 @white-yellow: #ecf0ef;
 @label-font: 'Josefin Slab', serif;
 @label-font-bold: @label-font, bold;
@@ -42,8 +48,14 @@ p {
 	font-size: 18px;
 	color: @white-yellow;
 }
+.obutton_small {
+	.obutton;
+	letter-spacing: 0px;
+	font-size: 12px;
+}
 
 .main_label { margin-top: 105px; }
+.main_label_small  { margin-top: 50px; }
 
 .credits {
 	margin-top: 250px;
@@ -52,15 +64,24 @@ p {
 
 .logofont {
 	font-family: @label-font-bold;
-	font-size: 65px;
-	margin-left: 20px;				
+	font-size: 65px;				
+	color: @white-yellow;	
+}
+
+.logofont2 {
+	font-family: @label-font;
+	font-size: 45px;
 	color: @white-yellow;	
 }
 
 .logofont_small {
-	font-family: @label-font;
-	font-size: 45px;
-	color: @white-yellow;	
+	.logofont;
+	font-size: 30px;
+}
+
+.logofont2_small {
+	.logofont2;
+	font-size: 18px;
 }
 
 .tooltip.bottom .tooltip-inner {
