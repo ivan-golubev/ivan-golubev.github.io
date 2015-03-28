@@ -1,0 +1,26 @@
+.tales-searchbox {
+  float: right;
+  display: inline-block;
+  min-width: 210px;
+  margin-bottom: 16px;
+  margin-top: 16px;
+}
+.paging {
+  margin-bottom: 20px;
+  text-align: right;
+}
+.blog-teaser {
+  background-color: #ececec;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 1px 5px #a8a8a8;
+  -moz-box-shadow: 0px 1px 5px #a8a8a8;
+  box-shadow: 0px 1px 5px #a8a8a8;
+  margin-bottom: 40px;
+}
+.aside-widget header {
+  background-image: linear-gradient(to bottom, #f6f5f5 0%, #ebeaea 100%);
+  background-repeat: repeat-x;
+  border: 1px #ced5db solid;
+}
