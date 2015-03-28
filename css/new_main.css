@@ -1,8 +1,8 @@
-.widewrapper.masthead {
+.firstheader {
   background-color: #242b32;
   color: #f8f8f9;
 }
-.widewrapper.subheader {
+.subheader {
   background-color: #37424c;
   color: #7b8690;
   font-size: 16px;
@@ -50,10 +50,6 @@
 .search-query:focus + button {
   z-index: 3;
 }
-.paging {
-  margin-bottom: 20px;
-  text-align: right;
-}
 .blog-teaser {
   background-color: #ececec;
   -webkit-border-radius: 10px;
@@ -62,7 +58,7 @@
   -webkit-box-shadow: 0px 1px 5px #a8a8a8;
   -moz-box-shadow: 0px 1px 5px #a8a8a8;
   box-shadow: 0px 1px 5px #a8a8a8;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 .aside-widget header {
   background-image: linear-gradient(to bottom, #f6f5f5 0%, #ebeaea 100%);
@@ -112,8 +108,7 @@
   margin-bottom: 10px;
 }
 .paging {
-  margin-bottom: 20px;
-  text-align: right;
+  margin-top: 0px;
 }
 .list-margin {
   margin-top: 10px;
