@@ -19,7 +19,7 @@
   font-size: 14px;
 }
 
-.main-searchbox {
+#custom-search-form {
   float: right;
   display: inline-block;
   min-width: 210px;
@@ -27,15 +27,36 @@
   margin-top: 16px;
 }
 
-.main-searchbox .searchbutton {
-  display: inline-block;
-  border: none;
-  line-height: 20px;
-  padding: 4px 5px 4px 15px;
-  height: 31px;
-  vertical-align: middle;
-  border-top-left-radius: 15px;
-  border-bottom-left-radius: 15px;
+#custom-search-form .search-query {
+    padding-right: 3px;
+    padding-right: 4px \9;
+    padding-left: 3px;
+    padding-left: 4px \9;
+    /* IE7-8 doesn't have border-radius, so don't indent the padding */
+
+    margin-bottom: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+#custom-search-form button {
+    border: 0;
+    background: none;
+    /** belows styles are working good */
+    padding: 2px 5px;
+    margin-top: 2px;
+    position: relative;
+    left: -28px;
+    /* IE7-8 doesn't have border-radius, so don't indent the padding */
+    margin-bottom: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.search-query:focus + button {
+    z-index: 3;   
 }
 
 .paging {
