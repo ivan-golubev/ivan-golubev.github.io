@@ -1,20 +1,37 @@
 [
 	{
 	    "img_src":    "img/cat.png",
-	    "title":      "Cats Everywhere",
+	    "title":      "Cats Everywhere 1",
 	    "name_date":  "24 July 2013, Alexander Rechsteiner",
-	    "body_text":  "Bacon ipsum dolor sit amet esse duis pastrami anim, pancetta fatback capicola officia tenderloin. Meatloaf culpa ut, bacon sed sausage jerky cillum est ham ad laboris ham hock dolore. Venison ut enim, aliqua elit frankfurter et incididunt consequat culpa nostru aliqua elit pancetta. "
+	    "body_text":  "Bacon ipsum dolor sit amet esse duis pastrami anim, pancetta fatback capicola officia tenderloin. Meatloaf culpa ut, bacon sed sausage jerky cillum est ham ad laboris ham hock dolore. Venison ut enim, aliqua elit frankfurter et incididunt consequat culpa nostru aliqua elit pancetta. ",
+		"tags":		  ["OpenPGP", "Django"]
 	},
 	{
 	    "img_src":    "img/cat.png",
-	    "title":      "Cats Everywhere",
+	    "title":      "Cats Everywhere 2",
 	    "name_date":  "24 July 2013, Alexander Rechsteiner",
-	    "body_text":  "Bacon ipsum dolor sit amet esse duis pastrami anim, pancetta fatback capicola officia tenderloin. Meatloaf culpa ut, bacon sed sausage jerky cillum est ham ad laboris ham hock dolore. Venison ut enim, aliqua elit frankfurter et incididunt consequat culpa nostru aliqua elit pancetta. "
+	    "body_text":  "Bacon ipsum dolor sit amet esse duis pastrami anim, pancetta fatback capicola officia tenderloin. Meatloaf culpa ut, bacon sed sausage jerky cillum est ham ad laboris ham hock dolore. Venison ut enim, aliqua elit frankfurter et incididunt consequat culpa nostru aliqua elit pancetta. ",
+	    "tags":		  ["Django"]
 	},
 	{
 	    "img_src":    "img/cat.png",
-	    "title":      "Cats Everywhere",
+	    "title":      "Cats Everywhere 3",
 	    "name_date":  "24 July 2013, Alexander Rechsteiner",
-	    "body_text":  "Bacon ipsum dolor sit amet esse duis pastrami anim, pancetta fatback capicola officia tenderloin. Meatloaf culpa ut, bacon sed sausage jerky cillum est ham ad laboris ham hock dolore. Venison ut enim, aliqua elit frankfurter et incididunt consequat culpa nostru aliqua elit pancetta. "
+	    "body_text":  "Bacon ipsum dolor sit amet esse duis pastrami anim, pancetta fatback capicola officia tenderloin. Meatloaf culpa ut, bacon sed sausage jerky cillum est ham ad laboris ham hock dolore. Venison ut enim, aliqua elit frankfurter et incididunt consequat culpa nostru aliqua elit pancetta. ",
+		"tags":		  ["C++", "Java"]
+	},
+	{
+	    "img_src":    "img/cat.png",
+	    "title":      "Cats Everywhere 4",
+	    "name_date":  "24 July 2013, Alexander Rechsteiner",
+	    "body_text":  "Bacon ipsum dolor sit amet esse duis pastrami anim, pancetta fatback capicola officia tenderloin. Meatloaf culpa ut, bacon sed sausage jerky cillum est ham ad laboris ham hock dolore. Venison ut enim, aliqua elit frankfurter et incididunt consequat culpa nostru aliqua elit pancetta. ",
+	    "tags":		  ["Django"]
+	},
+	{
+	    "img_src":    "img/cat.png",
+	    "title":      "Cats Everywhere 5",
+	    "name_date":  "24 July 2013, Alexander Rechsteiner",
+	    "body_text":  "Bacon ipsum dolor sit amet esse duis pastrami anim, pancetta fatback capicola officia tenderloin. Meatloaf culpa ut, bacon sed sausage jerky cillum est ham ad laboris ham hock dolore. Venison ut enim, aliqua elit frankfurter et incididunt consequat culpa nostru aliqua elit pancetta. ",
+		"tags":		  ["C++", "Java"]
 	}
 ]
