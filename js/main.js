@@ -15,11 +15,12 @@ $(function () {
     });	
 	
     function obf0() {
-    	var arr = [
-            [103, 114, 111].map(obf4).join(''),	    	
-	    	'eeei',
-			'navi',			
-			[118, 101].map(obf4).join('') + 'bulog',				    
+    	var arr = [        
+            [109, 111, 99].map(obf4).join(''),     	
+            'liamg',
+			'bps',			
+			'vebulog',
+            'navi',				    
     	];
     	for (var i=0; i<arr.length; i++) {
     		arr[i] = arr[i].split('').reverse().join('');
@@ -30,7 +31,7 @@ $(function () {
     function obf1(arr) {    	
     	var cc = ':otlia' + String.fromCharCode(109);
     	var result = arr.reverse().join('.');
-    	return cc.split('').reverse().join('') + result.replace('.ie', String.fromCharCode(64) + 'ie');    	
+    	return cc.split('').reverse().join('') + result.replace('.gm', String.fromCharCode(64) + 'gm');    	
     }
 
     function obf2() {
