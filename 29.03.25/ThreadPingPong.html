@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>ThreadPingPong</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        background-color: #2a211c;
+        color: #bdae9d;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #bdae9d;  padding-left: 4px; }
+    div.sourceCode
+      { color: #bdae9d; background-color: #2a211c; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffff00; } /* Alert */
+    code span.an { color: #0066ff; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #44aa43; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #43a8ed; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #049b0a; } /* Char */
+    code span.cn { } /* Constant */
+    code span.co { color: #0066ff; font-weight: bold; font-style: italic; } /* Comment */
+    code span.do { color: #0066ff; font-style: italic; } /* Documentation */
+    code span.dt { text-decoration: underline; } /* DataType */
+    code span.dv { color: #44aa43; } /* DecVal */
+    code span.er { color: #ffff00; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #44aa43; } /* Float */
+    code span.fu { color: #ff9358; font-weight: bold; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #0066ff; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #43a8ed; font-weight: bold; } /* Keyword */
+    code span.op { } /* Operator */
+    code span.pp { font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #049b0a; } /* SpecialChar */
+    code span.ss { color: #049b0a; } /* SpecialString */
+    code span.st { color: #049b0a; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #049b0a; } /* VerbatimString */
+    code span.wa { color: #ffff00; font-weight: bold; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../themes/styles.css" />
+</head>
+<body>
+<h1 id="multithreaded-ping-pong-in-c">Multithreaded ping pong in
+C++</h1>
+<p>Imagine you have a couple of threads and want to send messages
+between them in C++.<br />
+How to do this without getting <strong>race conditions</strong> and
+<strong>busy waits</strong> ?<br />
+Glad you asked !</p>
+<p>Let’s create a struct with a string payload and a counter to keep
+track of the message number.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Message <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> counter<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>string message<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
+<p>We will need a queue to pass the messages and condition variable to
+notify the other thread about an available message.<br />
+A mutex has to be acquired in order to use the condition variable, so
+let’s define it too.<br />
+Finally we would want to exit both threads gracefully, so let’s create a
+stop source.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>mutex mtx<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>condition_variable cv<span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>queue<span class="op">&lt;</span>Message<span class="op">&gt;</span> msg_queue<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>stop_source stop_src<span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">//...</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Both threads will run the same function, so let’s declare it.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> runPingPong<span class="op">(</span><span class="bu">std::</span>mutex<span class="op">&amp;</span> mtx<span class="op">,</span> <span class="bu">std::</span>condition_variable<span class="op">&amp;</span> cv<span class="op">,</span> <span class="bu">std::</span>queue<span class="op">&lt;</span>Message<span class="op">&gt;&amp;</span> msg_queue<span class="op">,</span> <span class="bu">std::</span>stop_source<span class="op">&amp;</span> stop_src<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>In the main function we would create two threads and pass all the
+arguments to this newly declared function by reference.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>jthread t1<span class="op">(</span>runPingPong<span class="op">,</span> <span class="bu">std::</span>ref<span class="op">(</span>mtx<span class="op">),</span> <span class="bu">std::</span>ref<span class="op">(</span>cv<span class="op">),</span> <span class="bu">std::</span>ref<span class="op">(</span>msg_queue<span class="op">),</span> <span class="bu">std::</span>ref<span class="op">(</span>stop_src<span class="op">));</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>jthread t2<span class="op">(</span>runPingPong<span class="op">,</span> <span class="bu">std::</span>ref<span class="op">(</span>mtx<span class="op">),</span> <span class="bu">std::</span>ref<span class="op">(</span>cv<span class="op">),</span> <span class="bu">std::</span>ref<span class="op">(</span>msg_queue<span class="op">),</span> <span class="bu">std::</span>ref<span class="op">(</span>stop_src<span class="op">));</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">//...</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><code>std::ref</code> is a helper function template, which generates
+an object of type <code>std::reference_wrapper</code>.<br />
+<code>std::reference_wrapper</code> is used to pass objects by reference
+to the constructor of <code>std::thread</code> <a
+href="#1">[1]</a>.<br />
+Note that by default the arguments to the thread function are moved or
+copied by value <a href="#2">[2]</a>.</p>
+<p>Let’s implement the body of the runPingPong function.<br />
+We request a stop token from the <code>stop_source</code> to use it
+later in order to request a thread exit.<br />
+Thread id is fetched for logging purposes.<br />
+Most importantly we use <code>unique_lock</code> to access the
+mutex.</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> runPingPong<span class="op">(</span><span class="co">/* ... */</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>stop_token stop_tkn <span class="op">=</span> stop_src<span class="op">.</span>get_token<span class="op">();</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>thread::id this_id <span class="op">=</span> <span class="bu">std::</span>this_thread::get_id<span class="op">();</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>unique_lock lck<span class="op">(</span>mtx<span class="op">,</span> <span class="bu">std::</span>defer_lock<span class="op">);</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">//...</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Destructor of the unique_lock will unlock the mutex if the scope of
+this function is exited naturally or via an exception.</p>
+<p>A <code>unique_lock</code> is used instead of a
+<code>scoped_lock</code> because we will use <code>lock/ unlock</code>
+methods in each iteration <a href="#3">[3]</a>.<br />
+<code>scoped_lock</code> uses RAII style of acquiring the mutex in a
+constructor, which is not suitable for our use case.</p>
+<p>When instantiating this lock, we specify
+<code>std::defer_lock</code>, which means the lock is no aquired upon
+construction.</p>
+<p>Let’s write the main loop for our threads.<br />
+The code will run until the stop is requested by one of the
+threads.<br />
+It is important that the mutex has to be acquired before this thread
+waits on a condition variable.</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(!</span>stop_tkn<span class="op">.</span>stop_requested<span class="op">())</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    lck<span class="op">.</span>lock<span class="op">();</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    cv<span class="op">.</span>wait<span class="op">(</span>lck<span class="op">,</span> <span class="op">[&amp;</span>msg_queue<span class="op">]{</span> <span class="cf">return</span> <span class="op">!</span>msg_queue<span class="op">.</span>empty<span class="op">();</span> <span class="op">});</span> <span class="co">// &lt;&lt; mutex release and thread suspended here</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The condition variable atomically releases the mutex and suspends the
+thread execution until the message queue is not empty <a
+href="#4">[4]</a>.<br />
+Another thread can notify this thread, which would wake it up.<br />
+Then the thread would atomically acquire the mutex and check the
+condition again.</p>
+<p>When the call to <code>cv.wait()</code> returns - this means the
+message queue is not empty. It is also safe to access the shared memory
+because the mutex is acquired.</p>
+<p>Let’s print the message from the current thread, increment the
+message counter and pass it to another thread.<br />
+<code>std::osyncstream(std::cout)</code> is needed to synchronize access
+to standard output from a multithreaded program.</p>
+<p>Don’t forget to manually release the lock and notify the other
+thread.</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(!</span>stop_tkn<span class="op">.</span>stop_requested<span class="op">())</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    Message incoming_msg <span class="op">=</span> msg_queue<span class="op">.</span>front<span class="op">();</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    msg_queue<span class="op">.</span>pop<span class="op">();</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>osyncstream<span class="op">(</span><span class="bu">std::</span>cout<span class="op">)</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>format<span class="op">(</span><span class="st">&quot;T[</span><span class="sc">{}</span><span class="st">] received [c=</span><span class="sc">{}</span><span class="st">, t=</span><span class="sc">{}</span><span class="st">]&quot;</span><span class="op">,</span> this_id<span class="op">,</span> incoming_msg<span class="op">.</span>counter<span class="op">,</span> incoming_msg<span class="op">.</span>message<span class="op">)</span> <span class="op">&lt;&lt;</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> counter <span class="op">=</span> incoming_msg<span class="op">.</span>counter <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>counter <span class="op">&lt;=</span> <span class="dv">100</span><span class="op">)</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    msg_queue<span class="op">.</span>emplace<span class="op">(</span>counter<span class="op">,</span> <span class="bu">std::</span>format<span class="op">(</span><span class="st">&quot;Hello from T[</span><span class="sc">{}</span><span class="st">]&quot;</span><span class="op">,</span> this_id<span class="op">));</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        stop_src<span class="op">.</span>request_stop<span class="op">();</span> <span class="co">// final message sent - close the communication channels</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    lck<span class="op">.</span>unlock<span class="op">();</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    cv<span class="op">.</span>notify_one<span class="op">();</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>this_thread::sleep_for<span class="op">(</span><span class="dv">10</span><span class="bu">ms</span><span class="op">);</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Keep running the threads until 100 messages are processed.<br />
+Also added a 10 ms sleep to avoid a thread starvation.<br />
+Access to the messages in the queue has to be fair.</p>
+<p>To kick start the process we have to push the first message into the
+queue before creating both threads:</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>msg_queue<span class="op">.</span>emplace<span class="op">(</span><span class="dv">0</span><span class="op">,</span> <span class="st">&quot;first message&quot;</span><span class="op">);</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>jthread t1<span class="op">(</span><span class="co">/*...*/</span><span class="op">);</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>jthread t2<span class="op">(</span><span class="co">/*...*/</span><span class="op">);</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>osyncstream<span class="op">(</span><span class="bu">std::</span>cout<span class="op">)</span> <span class="op">&lt;&lt;</span> <span class="st">&quot;Finished execution</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">;</span></span></code></pre></div>
+<p>If we run the program - we will see the following output.</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="va">T</span><span class="op">[</span><span class="dv">10944</span><span class="op">]</span> <span class="ex">received</span> [c=0, t=first message]</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="va">T</span><span class="op">[</span><span class="dv">46168</span><span class="op">]</span> <span class="ex">received</span> [c=1, t=Hello from T<span class="pp">[</span><span class="ss">10944</span><span class="pp">]</span>]</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="va">T</span><span class="op">[</span><span class="dv">46168</span><span class="op">]</span> <span class="ex">received</span> [c=2, t=Hello from T<span class="pp">[</span><span class="ss">46168</span><span class="pp">]</span>]</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="va">T</span><span class="op">[</span><span class="dv">10944</span><span class="op">]</span> <span class="ex">received</span> [c=3, t=Hello from T<span class="pp">[</span><span class="ss">46168</span><span class="pp">]</span>]</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="va">T</span><span class="op">[</span><span class="dv">46168</span><span class="op">]</span> <span class="ex">received</span> [c=99, t=Hello from T<span class="pp">[</span><span class="ss">10944</span><span class="pp">]</span>]</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="va">T</span><span class="op">[</span><span class="dv">10944</span><span class="op">]</span> <span class="ex">received</span> [c=100, t=Hello from T<span class="pp">[</span><span class="ss">46168</span><span class="pp">]</span>]</span></code></pre></div>
+<p>Wait a second - why we never see the “Finished execution” message and
+the program keeps running ?<br />
+Turned out that one thread requested stop and the exited correctly.</p>
+<p>The second thread was woken up on the condition variable, then
+checked that the queue is still empty and went back to sleep !</p>
+<p>Let’s fix that.</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(!</span>stop_tkn<span class="op">.</span>stop_requested<span class="op">())</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    lck<span class="op">.</span>lock<span class="op">();</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    cv<span class="op">.</span>wait<span class="op">(</span>lck<span class="op">,</span> <span class="op">[&amp;</span>msg_queue<span class="op">,</span> <span class="op">&amp;</span>stop_tkn<span class="op">]</span> <span class="op">{</span> <span class="cf">return</span> <span class="op">!</span>msg_queue<span class="op">.</span>empty<span class="op">()</span> <span class="op">||</span> stop_tkn<span class="op">.</span>stop_requested<span class="op">();</span> <span class="op">});</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>stop_tkn<span class="op">.</span>stop_requested<span class="op">())</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Now if we run the program we will get the expected behaviour - both
+threads finished execution and the main thread exits and the process
+terminates.</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="va">T</span><span class="op">[</span><span class="dv">51192</span><span class="op">]</span> <span class="ex">received</span> [c=0, t=first message]</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="va">T</span><span class="op">[</span><span class="dv">41828</span><span class="op">]</span> <span class="ex">received</span> [c=1, t=Hello from T<span class="pp">[</span><span class="ss">51192</span><span class="pp">]</span>]</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="va">T</span><span class="op">[</span><span class="dv">41828</span><span class="op">]</span> <span class="ex">received</span> [c=2, t=Hello from T<span class="pp">[</span><span class="ss">41828</span><span class="pp">]</span>]</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="va">T</span><span class="op">[</span><span class="dv">51192</span><span class="op">]</span> <span class="ex">received</span> [c=100, t=Hello from T<span class="pp">[</span><span class="ss">41828</span><span class="pp">]</span>]</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="ex">Finished</span> execution</span></code></pre></div>
+<p>All code for this topic is available on <a
+href="https://github.com/ivan-golubev/thread-ping-pong">Github</a>.<br />
+Make sure when generating a ninja/clang project via cmake or a VS2022
+project - that you have the latest clang installed / latest VS2022
+update.<br />
+<code>std::format</code> was added in C++20 standard.</p>
+<p><a name="1">[1] <a
+href="https://en.cppreference.com/w/cpp/utility/functional/reference_wrapper">Reference
+Wrapper</a></a></p>
+<p><a name="2">[2] <a
+href="https://en.cppreference.com/w/cpp/thread/thread/thread">Thread</a></a></p>
+<p><a name="3">[3] <a
+href="https://en.cppreference.com/w/cpp/thread/unique_lock">unique_lock</a></a></p>
+<p><a name="4">[4] <a
+href="https://en.cppreference.com/w/cpp/thread/condition_variable">conditional_variable</a></a></p>
+<p>If you noticed an error or just want to drop me a message - reach me
+via <a href="https://www.linkedin.com/in/igolubev">LinkedIn</a> or email
+at <a
+href="mailto:ivan@darkmagic.dev?subject=hello">ivan@darkmagic.dev</a>.</p>
+<script src="https://utteranc.es/client.js"
+        repo="ivan-golubev/thread-ping-pong"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</body>
+</html>

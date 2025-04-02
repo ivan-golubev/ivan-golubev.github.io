@@ -1,0 +1,1 @@
+pandoc.exe -s -o ThreadPingPong.html -f markdown -t html ThreadPingPong.md -c ../themes/styles.css --highlight-style espresso
