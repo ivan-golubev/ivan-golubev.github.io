@@ -192,8 +192,8 @@ clang installed / latest VS2022 update.
 If you noticed an error or just want to drop me a message - reach me via [LinkedIn](https://www.linkedin.com/in/igolubev) or email at [ivan@darkmagic.dev](mailto:ivan@darkmagic.dev?subject=hello).
 
 <script src="https://utteranc.es/client.js"
-        repo="ivan-golubev/thread-ping-pong"
-        issue-term="title"
+        repo="ivan-golubev/blog-comments"
+        issue-term="pathname"
         theme="github-light"
         crossorigin="anonymous"
         async>
