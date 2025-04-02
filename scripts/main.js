@@ -10,5 +10,7 @@ function appendCommentsDiv() {
 }
 
 window.onload = function() {
-	appendCommentsDiv();
+	// appendCommentsDiv();
+	document.getElementById('loadcomments').onclick = appendCommentsDiv;
 }
+
