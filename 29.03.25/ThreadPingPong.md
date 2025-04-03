@@ -188,8 +188,3 @@ clang installed / latest VS2022 update.
 <a name="3">\[3\] [unique_lock](https://en.cppreference.com/w/cpp/thread/unique_lock)</a>
 
 <a name="4">\[4\] [conditional_variable](https://en.cppreference.com/w/cpp/thread/condition_variable)</a>
-
-If you noticed an error or just want to drop me a message - reach me via [LinkedIn](https://www.linkedin.com/in/igolubev) or email at [ivan@darkmagic.dev](mailto:ivan@darkmagic.dev?subject=hello).
-
-<script src="../scripts/main.js"></script>
-<div id="bottom-marker" style="height: 1px;"></div>

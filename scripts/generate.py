@@ -31,8 +31,12 @@ def get_pandoc_location() -> str:
 def generate_html(markdown_filename: str) -> bool:
     html_filename = os.path.splitext(markdown_filename)[0] + ".html"
     header_file = os.path.join(www_root_dir(), "html", "header.html")
+    beforebody_file = os.path.join(www_root_dir(), "html", "before-body.html")
+    afterbody_file = os.path.join(www_root_dir(), "html", "after-body.html")
     style = "kate"
-    command = f"{get_pandoc_location()} -s -o {html_filename} -f markdown {markdown_filename} -t html --highlight-style {style} -H {header_file}"
+    command = f"{get_pandoc_location()} -s -o {html_filename} \
+-f markdown {markdown_filename} \
+-t html --highlight-style {style} -H {header_file} -B {beforebody_file} -A {afterbody_file}"
     print(command)
     result = subprocess.run(command, capture_output=True, text=True)
     if result.returncode == 0:

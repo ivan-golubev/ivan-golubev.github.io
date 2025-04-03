@@ -132,8 +132,3 @@ All code for this topic is available on [Github]("https://github.com/ivan-golube
 <a name="3">\[3\] [Cppreference - Empty base optimization](https://en.cppreference.com/w/cpp/language/ebo)</a>
 
 <a name="4">\[4\] [Cppreference - align as specifier](https://en.cppreference.com/w/cpp/language/alignas)</a>
-
-If you noticed an error or just want to drop me a message - reach me via [LinkedIn](https://www.linkedin.com/in/igolubev) or email at [ivan@darkmagic.dev](mailto:ivan@darkmagic.dev?subject=hello).
-
-<script src="../scripts/main.js"></script>
-<div id="bottom-marker" style="height: 1px;"></div>
