@@ -1,0 +1,1 @@
+pandoc.exe -s -o index.html -f markdown -t html index.md --highlight-style kate -H html/header.html

@@ -1,0 +1,1 @@
+pandoc.exe -s -o ObjectAlignment.html -f markdown -t html ObjectAlignment.md --highlight-style kate -H ../html/header.html

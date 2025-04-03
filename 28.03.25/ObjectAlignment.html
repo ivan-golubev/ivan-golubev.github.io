@@ -1,175 +1,382 @@
 <!DOCTYPE html>
-<html>
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-    <title>Object alignment in C++</title>
-	<link href="../themes/styles.css" rel="stylesheet"/>
-	<link href="themes/prism.css" rel="stylesheet"/>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>ObjectAlignment</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        background-color: #ffffff;
+        color: #a0a0a0;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+    div.sourceCode
+      { color: #1f1c1b; background-color: #ffffff; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #1f1c1b; } /* Normal */
+    code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+    code span.an { color: #ca60ca; } /* Annotation */
+    code span.at { color: #0057ae; } /* Attribute */
+    code span.bn { color: #b08000; } /* BaseN */
+    code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+    code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #924c9d; } /* Char */
+    code span.cn { color: #aa5500; } /* Constant */
+    code span.co { color: #898887; } /* Comment */
+    code span.cv { color: #0095ff; } /* CommentVar */
+    code span.do { color: #607880; } /* Documentation */
+    code span.dt { color: #0057ae; } /* DataType */
+    code span.dv { color: #b08000; } /* DecVal */
+    code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+    code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+    code span.fl { color: #b08000; } /* Float */
+    code span.fu { color: #644a9b; } /* Function */
+    code span.im { color: #ff5500; } /* Import */
+    code span.in { color: #b08000; } /* Information */
+    code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+    code span.op { color: #1f1c1b; } /* Operator */
+    code span.ot { color: #006e28; } /* Other */
+    code span.pp { color: #006e28; } /* Preprocessor */
+    code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+    code span.sc { color: #3daee9; } /* SpecialChar */
+    code span.ss { color: #ff5500; } /* SpecialString */
+    code span.st { color: #bf0303; } /* String */
+    code span.va { color: #0057ae; } /* Variable */
+    code span.vs { color: #bf0303; } /* VerbatimString */
+    code span.wa { color: #bf0303; } /* Warning */
+  </style>
+  <link rel='icon' type='image/png' href='img/favicon.png'>
 </head>
-
 <body>
-	<h1>Object alignment in C++</h1>
-	<script src="scripts/prism.js"></script>
-	<script src="../scripts/main.js"></script>
-<p>
-When you think about how an object in C++ is represented in memory you have to be aware of alignment <a href="#footnote1">[1]</a>.<br/>
-Structs and struct fields are aligned on memory word boundaries to make sure the memory access is efficient.<br/>
-For example reading a primitive data type like int64_t on a x86-64 architecture results in a single memory word access
-when this object is aligned at 8 byte boundary.
-</p>
+<h1 id="object-alignment-in-c">Object alignment in C++</h1>
+<p>When you think about how an object in C++ is represented in memory
+you have to be aware of alignment <a href="#1">[1]</a>.<br />
+Structs and struct fields are aligned on memory word boundaries to make
+sure the memory access is efficient.<br />
+For example reading a primitive data type like int64_t on a x86-64
+architecture results in a single memory word access when this object is
+aligned at 8 byte boundary.</p>
+<p>If the object is not aligned properly - accessing such an object
+could result in unnecessary reading of multiple memory words.<br />
+To make matters worse, when the second part of the object is in a
+separate page within a virtual memory system - a TLB miss or a page
+fault may occur <a href="#2">[2]</a>.<br />
+This would hurt the performance even more.</p>
+<p>The alignment of a struct is the strictest (largest) alignment of any
+of its members and compiler may add padding between members to ensure
+proper alignment.</p>
+<p>Let us see how structs are represented in memory in C++ and their
+size and alignment using this helper function:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span><span class="op">&lt;</span><span class="kw">typename</span> T<span class="op">&gt;;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> printTypeSizeAlign<span class="op">(</span><span class="at">const</span> T<span class="op">&amp;;</span> value<span class="op">)</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>cout <span class="op">&lt;&lt;;</span> <span class="bu">std::</span>format<span class="op">(</span><span class="st">&quot;sizeof(</span><span class="sc">{}</span><span class="st">): </span><span class="sc">{}</span><span class="st"> bytes, align: </span><span class="sc">{}</span><span class="st"> bytes</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> <span class="kw">typeid</span><span class="op">(</span>value<span class="op">).</span>name<span class="op">(),</span> <span class="kw">sizeof</span><span class="op">(</span>value<span class="op">),</span> <span class="kw">alignof</span><span class="op">(</span>T<span class="op">));</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>In a simple scenario we have the expected each field take 4 bytes and
+this is the alignment of the struct.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> TwoInts</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> first<span class="op">{};</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> second<span class="op">{};</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>TwoInts x<span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>printTypeSizeAlign<span class="op">(</span>x<span class="op">);</span>  </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">// sizeof(struct TwoInts): 8 bytes, align: 4 bytes</span></span></code></pre></div>
+<p>An empty struct takes the minimum addressable size in computer memory
+- a single byte.<br />
+The size is also non zero because distinct instances of an empty struct
+should have distinct addresses <a href="#3">[3]</a>.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Empty <span class="op">{};</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Empty x<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>printTypeSizeAlign<span class="op">(</span>x<span class="op">);</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">//sizeof(struct Empty): 1 bytes, align: 1 bytes</span></span></code></pre></div>
+<p>A struct inheriting from an empty base <a href="#3">[3]</a> have the
+empty base optimized away from the object layout in memory, which
+results in expected 4 byte size/ alignment.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> ChildOfEmpty <span class="op">:</span> <span class="kw">public</span> Empty</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> first<span class="op">{};</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>ChildOfEmpty x<span class="op">;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>printTypeSizeAlign<span class="op">(</span>x<span class="op">);</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">// sizeof(struct ChildOfEmpty): 4 bytes, align: 4 bytes</span></span></code></pre></div>
+<p>To make sure that the larger field (int second) is aligned on a 4
+byte boundary a compiler has to insert a 2 byte padding. This results in
+a larger size of the object than the sum of its members (6 bytes).</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> ShortAndInt</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">short</span> first<span class="op">{};</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> second<span class="op">{};</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>ShortAndInt x<span class="op">;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>printTypeSizeAlign<span class="op">(</span>x<span class="op">);</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">// sizeof(struct ShortAndInt): 8 bytes, align: 4 bytes</span></span></code></pre></div>
+<p>This highlights the importance of order of the members and generally
+it is preferable to declare larger fields before smaller fields to avoid
+wasting space on padding.</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> IntAndTwoShorts</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> first<span class="op">{};</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">short</span> second<span class="op">{};</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">short</span> third<span class="op">{};</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>IntAndTwoShorts x<span class="op">;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>printTypeSizeAlign<span class="op">(</span>x<span class="op">);</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">// sizeof(struct IntAndTwoShorts): 8 bytes, align: 4 bytes</span></span></code></pre></div>
+<p>A stricter alignment (with larger alignment requirement) can be
+requested using alignas <a href="#4">[4]</a>.<br />
+Note that it still has to be a power of two and cannot be smaller than
+the sum of the size of the elements.</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> <span class="kw">alignas</span><span class="op">(</span><span class="kw">alignof</span><span class="op">(</span><span class="dt">double</span><span class="op">))</span> StricterAlignmentStruct</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> first<span class="op">;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>StricterAlignmentStruct x<span class="op">;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>printTypeSizeAlign<span class="op">(</span>x<span class="op">);</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">// sizeof(struct StricterAlignmentStruct): 8 bytes, align: 8 bytes</span></span></code></pre></div>
+<p>Let us also see the effect on the size and alignment when bit fields
+are used.</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> TwoChars</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> first<span class="op">;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> second<span class="op">;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> BitFieldStruct</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> first <span class="op">:</span> <span class="dv">4</span><span class="op">;</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> second <span class="op">:</span> <span class="dv">4</span><span class="op">;</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>TwoChars x1<span class="op">;</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>printTypeSizeAlign<span class="op">(</span>x1<span class="op">);</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>BitFieldStruct x2<span class="op">;</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>printTypeSizeAlign<span class="op">(</span>x2<span class="op">);</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co">// sizeof(struct TwoChars): 2 bytes, align: 1 bytes</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co">// sizeof(struct BitFieldStruct): 1 bytes, align: 1 bytes</span></span></code></pre></div>
+<p>To finish this topic - to see what is the largest alignment for all
+scalar types on the current platform:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">&quot;Max scalar type alignment on this platform: &quot;</span> <span class="op">&lt;&lt;</span> <span class="kw">alignof</span><span class="op">(</span><span class="bu">std::</span>max_align_t<span class="op">);</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">// Max scalar type alignment on this platform: 8</span></span></code></pre></div>
+<p>All code for this topic is available on <a href=""
+title="https://github.com/ivan-golubev/structsinmemory">Github</a>.</p>
+<p><a name="1">[1] <a
+href="https://en.cppreference.com/w/cpp/language/object#Alignment">Cppreference
+- Alignment</a></a></p>
+<p><a name="2">[2] <a
+href="https://en.wikipedia.org/wiki/Data_structure_alignment">Data
+structure alignment Wiki</a></a></p>
+<p><a name="3">[3] <a
+href="https://en.cppreference.com/w/cpp/language/ebo">Cppreference -
+Empty base optimization</a></a></p>
+<p><a name="4">[4] <a
+href="https://en.cppreference.com/w/cpp/language/alignas">Cppreference -
+align as specifier</a></a></p>
+<p>If you noticed an error or just want to drop me a message - reach me
+via <a href="https://www.linkedin.com/in/igolubev">LinkedIn</a> or email
+at <a
+href="mailto:ivan@darkmagic.dev?subject=hello">ivan@darkmagic.dev</a>.</p>
+<script src="../scripts/main.js"></script>
+<div id="bottom-marker" style="height: 1px;">
 
-<p>
-If the object is not aligned properly - accessing such an object could result in unnecessary reading of multiple memory words.<br/>
-To make matters worse, when the second part of the object is in a separate page within a virtual memory system - a TLB miss or a page fault
-may occur <a href="#footnote2">[2]</a>. <br/>
-This would hurt the performance even more.
-</p>
-
-<p>
-The alignment of a struct is the strictest (largest) alignment of any of its members
-and compiler may add padding between members to ensure proper alignment.
-</p>
-
-<p>
-Let us see how structs are represented in memory in C++ and their size and alignment using this helper function:
-</p>
-<pre><code class="language-cpp">
-template&lt;typename T&gt;
-void printTypeSizeAlign(const T&amp; value)
-{
-	std::cout &lt;&lt; std::format("sizeof({}): {} bytes, align: {} bytes\n", typeid(value).name(), sizeof(value), alignof(T));
-}
-</code></pre>
-
-<p>
-In a simple scenario we have the expected each field take 4 bytes and this is the alignment of the struct.
-</p>
-<pre><code class="language-cpp">
-struct TwoInts
-{
-	int first{};
-	int second{};
-};
-TwoInts x;
-printTypeSizeAlign(x);	
-// sizeof(struct TwoInts): 8 bytes, align: 4 bytes
-</code></pre>
-
-<p>
-An empty struct takes the minimum addressable size in computer memory - a single byte.
-The size is also non zero because distinct instances of an empty struct should have distinct addresses <a href="#footnote3">[3]</a>.
-</p>
-<pre><code class="language-cpp">
-struct Empty {};
-Empty x;
-printTypeSizeAlign(x);
-//sizeof(struct Empty): 1 bytes, align: 1 bytes
-</code></pre>
-
-<p>
-A struct inheriting from an empty base <a href="#footnote3">[3]</a> have the empty base optimized away from the object layout in memory,
-which results in expected 4 byte size/ alignment.
-</p>
-<pre><code class="language-cpp">
-struct ChildOfEmpty : public Empty
-{
-	int first{};
-};
-ChildOfEmpty x;
-printTypeSizeAlign(x);
-// sizeof(struct ChildOfEmpty): 4 bytes, align: 4 bytes
-</code></pre>
-
-<p>
-To make sure that the larger field (int second) is aligned on a 4 byte boundary a compiler
-has to insert a 2 byte padding. This results in a larger size of the object than the sum of its members (6 bytes).
-</p>
-<pre><code class="language-cpp">
-struct ShortAndInt
-{
-	short first{};
-	int second{};
-};
-ShortAndInt x;
-printTypeSizeAlign(x);
-// sizeof(struct ShortAndInt): 8 bytes, align: 4 bytes
-</code></pre>
-
-<p>
-This highlights the importance of order of the members and generally it is preferable to declare larger fields before
-smaller fields to avoid wasting space on padding.
-</p>
-<pre><code class="language-cpp">
-struct IntAndTwoShorts
-{
-	int first{};
-	short second{};
-	short third{};
-};
-IntAndTwoShorts x;
-printTypeSizeAlign(x);
-// sizeof(struct IntAndTwoShorts): 8 bytes, align: 4 bytes
-</code></pre>
-
-<p>
-A stricter alignment (with larger alignment requirement) can be requested using alignas <a href="#footnote4">[4]</a>.
-Note that it still has to be a power of two and cannot be smaller than the sum of the size of the elements.
-</p>
-<pre><code class="language-cpp">
-struct alignas(alignof(double)) StricterAlignmentStruct
-{
-	int first;
-};
-StricterAlignmentStruct x;
-printTypeSizeAlign(x);
-// sizeof(struct StricterAlignmentStruct): 8 bytes, align: 8 bytes
-</code></pre>
-
-<p>
-Let us also see the effect on the size and alignment when bit fields are used.
-</p>
-<pre><code class="language-cpp">
-struct TwoChars
-{
-	char first;
-	char second;
-};
-
-struct BitFieldStruct
-{
-	char first : 4;
-	char second : 4;
-};
-TwoChars x1;
-printTypeSizeAlign(x1);
-BitFieldStruct x2;
-printTypeSizeAlign(x2);
-// sizeof(struct TwoChars): 2 bytes, align: 1 bytes
-// sizeof(struct BitFieldStruct): 1 bytes, align: 1 bytes
-</code></pre>
-
-<p>
-To finish this topic - to see what is the largest alignment for all scalar types on the current platform:
-</p>
-<pre><code class="language-cpp">
-std::cout &lt;&lt; "Max scalar type alignment on this platform: " &lt;&lt; alignof(std::max_align_t);
-// Max scalar type alignment on this platform: 8
-</code></pre>
-
-<p>
-All code for this topic is available on <a href="https://github.com/ivan-golubev/structsinmemory">Github</a>.
-</p>
-
-<p id="footnote1">[1] <a href="https://en.cppreference.com/w/cpp/language/object#Alignment">Cppreference - Alignment</a></p>
-<p id="footnote2">[2] <a href="https://en.wikipedia.org/wiki/Data_structure_alignment">Data structure alignment Wiki</a></p>
-<p id="footnote3">[3] <a href="https://en.cppreference.com/w/cpp/language/ebo">Cppreference - Empty base optimization</a></p>
-<p id="footnote4">[4] <a href="https://en.cppreference.com/w/cpp/language/alignas">Cppreference - align as specifier</a></p>
-
-<p>
-If you noticed an error or just want to drop me a message - reach me via <a href="https://www.linkedin.com/in/igolubev">LinkedIn</a> or email at <a href="mailto:ivan@darkmagic.dev?subject=hello">ivan@darkmagic.dev</a>.
-</p>
-
-<div id="bottom-marker" style="height: 1px;"></div>
+</div>
 </body>
-
 </html>
