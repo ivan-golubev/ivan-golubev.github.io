@@ -1,1 +1,0 @@
-pandoc.exe -s -o ThreadPingPong.html -f markdown -t html ThreadPingPong.md --highlight-style kate -H ../html/header.html
