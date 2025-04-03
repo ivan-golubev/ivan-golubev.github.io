@@ -9,8 +9,25 @@ function appendCommentsDiv() {
 	document.body.appendChild(newScript);
 }
 
-window.onload = function() {
-	// appendCommentsDiv();
-	document.getElementById('loadcomments').onclick = appendCommentsDiv;
+function setupCommentLoader() {
+	let commentSectionAdded = false;
+	let observer;
+
+	// when user reaches the end of the page - load the comments
+	// this is needed for iOS
+	function observeBottomMarker() {
+		function callback (entries, observer) {
+			const entry = entries[0];
+			if (entry.isIntersecting && !commentSectionAdded) {
+				commentSectionAdded = true;
+				appendCommentsDiv();
+				observer.unobserve(entry.target);
+			}
+		}
+		observer = new IntersectionObserver(callback, {threshold: 1});
+		observer.observe(document.getElementById('bottom-marker'));
+	}
+	return observeBottomMarker;
 }
 
+window.onload = setupCommentLoader();
