@@ -33,15 +33,12 @@ def generate_html(markdown_filename: str) -> bool:
     header_file = os.path.join(www_root_dir(), "html", "header.html")
     beforebody_file = os.path.join(www_root_dir(), "html", "before-body.html")
     afterbody_file = os.path.join(www_root_dir(), "html", "after-body.html")
-    # note that at the moment the template file is a carbon copy of the default, so this is only for visibility
-    html_template_file = os.path.join(www_root_dir(), "templates", "default.html")
     metadata_file = os.path.join(www_root_dir(), "templates", "metadata.yaml")
     style = "breezedark"
     command = f"{get_pandoc_location()} -s -o {html_filename} \
 -f markdown {markdown_filename} \
 -t html --highlight-style {style} \
 -H {header_file} -B {beforebody_file} -A {afterbody_file} \
---template={html_template_file} \
 --metadata-file={metadata_file}"
     print(command)
     result = subprocess.run(command, capture_output=True, text=True)
