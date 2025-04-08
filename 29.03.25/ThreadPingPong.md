@@ -72,7 +72,7 @@ A `unique_lock` is used instead of a `scoped_lock` because we will use
 `lock/ unlock` methods in each iteration [\[3\]](#3).  
 `scoped_lock` uses RAII style of acquiring the mutex in a constructor, which is not suitable for our use case.
 
-When instantiating this lock, we specify `std::defer_lock`, which means the lock is no aquired upon construction.
+When instantiating this lock, we specify `std::defer_lock`, which means the lock is no acquired upon construction.
 
 Let's write the main loop for our threads.  
 The code will run until the stop is requested by one of the threads.  
@@ -146,9 +146,9 @@ T[10944] received [c=100, t=Hello from T[46168]]
 ```
 
 Wait a second - why we never see the "Finished execution" message and the program keeps running ?  
-Turned out that one thread requested stop and the exited correctly.
+Turned out that one thread requested a stop and then exited correctly.
 
-The second thread was woken up on the condition variable, then checked that the queue is still empty and
+The second thread was woken up on the condition variable, then it checked that the queue is still empty and
 went back to sleep !
 
 Let's fix that.
@@ -165,7 +165,7 @@ while (!stop_tkn.stop_requested())
 }
 ```
 
-Now if we run the program we will get the expected behaviour - both threads finished execution and the main thread exits and the process terminates.
+Now if we run the program we will get the expected behaviour - both threads finish execution and the main thread exits and the process terminates.
 
 ```bash
 T[51192] received [c=0, t=first message]

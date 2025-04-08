@@ -36,7 +36,7 @@ def generate_html(markdown_filename: str) -> bool:
     # note that at the moment the template file is a carbon copy of the default, so this is only for visibility
     html_template_file = os.path.join(www_root_dir(), "templates", "default.html")
     metadata_file = os.path.join(www_root_dir(), "templates", "metadata.yaml")
-    style = "kate"
+    style = "breezedark"
     command = f"{get_pandoc_location()} -s -o {html_filename} \
 -f markdown {markdown_filename} \
 -t html --highlight-style {style} \

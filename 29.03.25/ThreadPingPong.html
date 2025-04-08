@@ -198,56 +198,58 @@
         -khtml-user-select: none; -moz-user-select: none;
         -ms-user-select: none; user-select: none;
         padding: 0 4px; width: 4em;
-        background-color: #ffffff;
-        color: #a0a0a0;
+        background-color: #232629;
+        color: #7a7c7d;
       }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #7a7c7d;  padding-left: 4px; }
     div.sourceCode
-      { color: #1f1c1b; background-color: #ffffff; }
+      { color: #cfcfc2; background-color: #232629; }
     @media screen {
     pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
     }
-    code span { color: #1f1c1b; } /* Normal */
-    code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
-    code span.an { color: #ca60ca; } /* Annotation */
-    code span.at { color: #0057ae; } /* Attribute */
-    code span.bn { color: #b08000; } /* BaseN */
-    code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
-    code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #924c9d; } /* Char */
-    code span.cn { color: #aa5500; } /* Constant */
-    code span.co { color: #898887; } /* Comment */
-    code span.cv { color: #0095ff; } /* CommentVar */
-    code span.do { color: #607880; } /* Documentation */
-    code span.dt { color: #0057ae; } /* DataType */
-    code span.dv { color: #b08000; } /* DecVal */
-    code span.er { color: #bf0303; text-decoration: underline; } /* Error */
-    code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
-    code span.fl { color: #b08000; } /* Float */
-    code span.fu { color: #644a9b; } /* Function */
-    code span.im { color: #ff5500; } /* Import */
-    code span.in { color: #b08000; } /* Information */
-    code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
-    code span.op { color: #1f1c1b; } /* Operator */
-    code span.ot { color: #006e28; } /* Other */
-    code span.pp { color: #006e28; } /* Preprocessor */
-    code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+    code span { color: #cfcfc2; } /* Normal */
+    code span.al { color: #95da4c; background-color: #4d1f24; font-weight: bold; } /* Alert */
+    code span.an { color: #3f8058; } /* Annotation */
+    code span.at { color: #2980b9; } /* Attribute */
+    code span.bn { color: #f67400; } /* BaseN */
+    code span.bu { color: #7f8c8d; } /* BuiltIn */
+    code span.cf { color: #fdbc4b; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #3daee9; } /* Char */
+    code span.cn { color: #27aeae; font-weight: bold; } /* Constant */
+    code span.co { color: #7a7c7d; } /* Comment */
+    code span.cv { color: #7f8c8d; } /* CommentVar */
+    code span.do { color: #a43340; } /* Documentation */
+    code span.dt { color: #2980b9; } /* DataType */
+    code span.dv { color: #f67400; } /* DecVal */
+    code span.er { color: #da4453; text-decoration: underline; } /* Error */
+    code span.ex { color: #0099ff; font-weight: bold; } /* Extension */
+    code span.fl { color: #f67400; } /* Float */
+    code span.fu { color: #8e44ad; } /* Function */
+    code span.im { color: #27ae60; } /* Import */
+    code span.in { color: #c45b00; } /* Information */
+    code span.kw { color: #cfcfc2; font-weight: bold; } /* Keyword */
+    code span.op { color: #cfcfc2; } /* Operator */
+    code span.ot { color: #27ae60; } /* Other */
+    code span.pp { color: #27ae60; } /* Preprocessor */
+    code span.re { color: #2980b9; background-color: #153042; } /* RegionMarker */
     code span.sc { color: #3daee9; } /* SpecialChar */
-    code span.ss { color: #ff5500; } /* SpecialString */
-    code span.st { color: #bf0303; } /* String */
-    code span.va { color: #0057ae; } /* Variable */
-    code span.vs { color: #bf0303; } /* VerbatimString */
-    code span.wa { color: #bf0303; } /* Warning */
+    code span.ss { color: #da4453; } /* SpecialString */
+    code span.st { color: #f44f4f; } /* String */
+    code span.va { color: #27aeae; } /* Variable */
+    code span.vs { color: #da4453; } /* VerbatimString */
+    code span.wa { color: #da4453; } /* Warning */
   </style>
   <link rel='icon' type='image/png' href='/img/favicon.png'>
   <script src="/scripts/theme_switch.js"></script>
-  <link rel="stylesheet" href="/themes/colors.css">
-  <!-- Use Ubuntu fonts for text -->
-  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+  <link rel="stylesheet" href="/themes/fonts_colors.css">
+  <!-- Use Ubuntu fonts for text from https://fonts.google.com/selection/embed -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
 </head>
 <body>
 <h1>
-<a href="/index.html" style="text-decoration: none;">Welcome to Ivan Golubev's tech blog !</a>
+<a href="/index.html">Welcome to Ivan Golubev's tech blog !</a>
 </h1>
 <h1 id="multithreaded-ping-pong-in-c">Multithreaded ping pong in
 C++</h1>
@@ -319,7 +321,7 @@ methods in each iteration <a href="#3">[3]</a>.<br />
 <code>scoped_lock</code> uses RAII style of acquiring the mutex in a
 constructor, which is not suitable for our use case.</p>
 <p>When instantiating this lock, we specify
-<code>std::defer_lock</code>, which means the lock is no aquired upon
+<code>std::defer_lock</code>, which means the lock is no acquired upon
 construction.</p>
 <p>Let’s write the main loop for our threads.<br />
 The code will run until the stop is requested by one of the
@@ -387,8 +389,9 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="va">T</span><span class="op">[</span><span class="dv">10944</span><span class="op">]</span> <span class="ex">received</span> [c=100, t=Hello from T<span class="pp">[</span><span class="ss">46168</span><span class="pp">]</span>]</span></code></pre></div>
 <p>Wait a second - why we never see the “Finished execution” message and
 the program keeps running ?<br />
-Turned out that one thread requested stop and the exited correctly.</p>
-<p>The second thread was woken up on the condition variable, then
+Turned out that one thread requested a stop and then exited
+correctly.</p>
+<p>The second thread was woken up on the condition variable, then it
 checked that the queue is still empty and went back to sleep !</p>
 <p>Let’s fix that.</p>
 <div class="sourceCode" id="cb10"><pre
@@ -402,7 +405,7 @@ class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb10-1"><a href="#
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>Now if we run the program we will get the expected behaviour - both
-threads finished execution and the main thread exits and the process
+threads finish execution and the main thread exits and the process
 terminates.</p>
 <div class="sourceCode" id="cb11"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="va">T</span><span class="op">[</span><span class="dv">51192</span><span class="op">]</span> <span class="ex">received</span> [c=0, t=first message]</span>
@@ -427,7 +430,7 @@ href="https://en.cppreference.com/w/cpp/thread/unique_lock">unique_lock</a></a><
 <p><a name="4">[4] <a
 href="https://en.cppreference.com/w/cpp/thread/condition_variable">conditional_variable</a></a></p>
 <p>
-If you noticed an error or just want to drop me a message - reach me via <a href="https://www.linkedin.com/in/igolubev">LinkedIn</a> or email at <a href="mailto:ivan@darkmagic.dev?subject=hello">ivan@darkmagic.dev</a>.
+If you noticed an error or just want to drop me a message - reach me via <a href="https://www.linkedin.com/in/igolubev">LinkedIn</a> or <a href="mailto:&#105;&#118;&#097;&#110;&#064;&#100;&#097;&#114;&#107;&#109;&#097;&#103;&#105;&#099;&#046;&#100;&#101;&#118;">email</a>.
 </p>
 
 <a href="/" class="hide-on-index-page">Home</a>

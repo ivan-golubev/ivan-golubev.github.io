@@ -1,9 +1,11 @@
 function appendCommentsDiv() {
+	const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+	const theme = prefersDarkScheme.matches ? 'github-dark' : 'github-light';
 	newScript = document.createElement('script');
 	newScript.setAttribute('src', 'https://utteranc.es/client.js');
 	newScript.setAttribute('repo', 'ivan-golubev/blog-comments');
 	newScript.setAttribute('issue-term', 'pathname');
-	newScript.setAttribute('theme', 'github-light');
+	newScript.setAttribute('theme', theme);
 	newScript.setAttribute('crossorigin', 'anonymous');
 	newScript.setAttribute('async', '');
 	document.body.appendChild(newScript);
@@ -43,7 +45,7 @@ function init() {
 	if (isRootPath) {
 		hideBlocksAtIndexPage();
 	} else {
-		setupCommentLoader();
+		setupCommentLoader()();
 	}
 }
 

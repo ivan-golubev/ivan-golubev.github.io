@@ -16,9 +16,9 @@ and compiler may add padding between members to ensure proper alignment.
 Let us see how structs are represented in memory in C++ and their size and alignment using this helper function:
 ```cpp
 template<typename T>;
-void printTypeSizeAlign(const T&; value)
+void printTypeSizeAlign(const T& value)
 {
-	std::cout <<; std::format("sizeof({}): {} bytes, align: {} bytes\n", typeid(value).name(), sizeof(value), alignof(T));
+	std::cout << std::format("sizeof({}): {} bytes, align: {} bytes\n", typeid(value).name(), sizeof(value), alignof(T));
 }
 ```
 
