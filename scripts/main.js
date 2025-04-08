@@ -30,4 +30,4 @@ function setupCommentLoader() {
 	return observeBottomMarker;
 }
 
-window.onload = setupCommentLoader();
+window.addEventListener('load', setupCommentLoader, false);
