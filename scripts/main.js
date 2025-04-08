@@ -30,4 +30,21 @@ function setupCommentLoader() {
 	return observeBottomMarker;
 }
 
-window.addEventListener('load', setupCommentLoader, false);
+function hideBlocksAtIndexPage() {
+	const blocks = document.querySelectorAll('.hide-on-index-page');
+	blocks.forEach(block => {
+		block.style.display = 'none';
+	});
+}
+
+function init() {
+	const path = window.location.pathname;
+	const isRootPath = path === '/' || path === '/index.html' || path === '';
+	if (isRootPath) {
+		hideBlocksAtIndexPage();
+	} else {
+		setupCommentLoader();
+	}
+}
+
+window.addEventListener('load', init, false);
