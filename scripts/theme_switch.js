@@ -1,7 +1,7 @@
 function setupTheme() {
 	const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
-
-	if (prefersDarkScheme.matches) {
+	const enforceDarkTheme = true; // just use dark theme, it is better
+	if (prefersDarkScheme.matches || enforceDarkTheme) {
 	  document.body.classList.add("dark-theme");
 	} else {
 	  document.body.classList.remove("dark-theme");
