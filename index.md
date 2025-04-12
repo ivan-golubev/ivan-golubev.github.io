@@ -1,5 +1,5 @@
-08 April 2025 - [Backtracking in C++](/08.04.25/Backtracking.html)
+08 April 2025 - [Backtracking in C++](/leetcode-backtracking.html)
 
-29 March 2025 - [Multithreaded ping pong in C++](/29.03.25/ThreadPingPong.html)
+29 March 2025 - [Multithreaded ping pong in C++](/cpp-threading-messages.html)
 
-28 March 2025 - [On memory alignment in C++](/28.03.25/ObjectAlignment.html)
+28 March 2025 - [On memory alignment in C++](/cpp-memory-alignment.html)
