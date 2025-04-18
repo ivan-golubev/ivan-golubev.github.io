@@ -1,3 +1,5 @@
+18 April 2025 - [Finding shortest path in a graph in C++](/graph-dijkstra.html)
+
 17 April 2025 - [Using atomics for lock free programming in C++](/cpp-lockfree.html)
 
 08 April 2025 - [Backtracking in C++](/leetcode-backtracking.html)
