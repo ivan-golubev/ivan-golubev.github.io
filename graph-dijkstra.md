@@ -133,16 +133,16 @@ The algorithm keeps running until all the vertices are visited (i.e. the heap is
 	while (!minHeap.empty())
 	{
 		auto [fromVertex, currentDistance] = minHeap.top(); minHeap.pop();
-		for (const auto& edge : graph.AdjList[fromVertex])
+		for (const auto& [to, weight] : graph.AdjList[fromVertex])
 		{
-			int newDistance = edge.weight + currentDistance;
-			if (newDistance < shortestPaths[edge.to])
+			int newDistance = weight + currentDistance;
+			if (newDistance < shortestPaths[to])
 			{
-				shortestPaths[edge.to] = newDistance;
+				shortestPaths[to] = newDistance;
 #ifndef NDEBUG
-				std::cout << std::format("Found shortest path from {} to {} with weight = {}\n", sourceVertex + 1, edge.to + 1, newDistance);
+				std::cout << std::format("Found shortest path from {} to {} with weight = {}\n", sourceVertex + 1, to + 1, newDistance);
 #endif
-				minHeap.emplace(edge.to, newDistance);
+				minHeap.emplace(to, newDistance);
 			}
 		}
 	}

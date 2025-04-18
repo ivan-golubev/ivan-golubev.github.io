@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Ivan Golubev" />
-  <meta name="keywords" content="C++" />
+  <meta name="keywords" content="C++, Rust" />
   <title>graph-dijkstra</title>
   <style>
     html {
@@ -398,16 +398,16 @@ class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#c
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(!</span>minHeap<span class="op">.</span>empty<span class="op">())</span></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span> <span class="op">[</span>fromVertex<span class="op">,</span> currentDistance<span class="op">]</span> <span class="op">=</span> minHeap<span class="op">.</span>top<span class="op">();</span> minHeap<span class="op">.</span>pop<span class="op">();</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="at">const</span> <span class="kw">auto</span><span class="op">&amp;</span> edge <span class="op">:</span> graph<span class="op">.</span>AdjList<span class="op">[</span>fromVertex<span class="op">])</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="at">const</span> <span class="kw">auto</span><span class="op">&amp;</span> <span class="op">[</span>to<span class="op">,</span> weight<span class="op">]</span> <span class="op">:</span> graph<span class="op">.</span>AdjList<span class="op">[</span>fromVertex<span class="op">])</span></span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>            <span class="dt">int</span> newDistance <span class="op">=</span> edge<span class="op">.</span>weight <span class="op">+</span> currentDistance<span class="op">;</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>newDistance <span class="op">&lt;</span> shortestPaths<span class="op">[</span>edge<span class="op">.</span>to<span class="op">])</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>            <span class="dt">int</span> newDistance <span class="op">=</span> weight <span class="op">+</span> currentDistance<span class="op">;</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>newDistance <span class="op">&lt;</span> shortestPaths<span class="op">[</span>to<span class="op">])</span></span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>                shortestPaths<span class="op">[</span>edge<span class="op">.</span>to<span class="op">]</span> <span class="op">=</span> newDistance<span class="op">;</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>                shortestPaths<span class="op">[</span>to<span class="op">]</span> <span class="op">=</span> newDistance<span class="op">;</span></span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="pp">#ifndef NDEBUG</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>                <span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="bu">std::</span>format<span class="op">(</span><span class="st">&quot;Found shortest path from </span><span class="sc">{}</span><span class="st"> to </span><span class="sc">{}</span><span class="st"> with weight = </span><span class="sc">{}\n</span><span class="st">&quot;</span><span class="op">,</span> sourceVertex <span class="op">+</span> <span class="dv">1</span><span class="op">,</span> edge<span class="op">.</span>to <span class="op">+</span> <span class="dv">1</span><span class="op">,</span> newDistance<span class="op">);</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>                <span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="bu">std::</span>format<span class="op">(</span><span class="st">&quot;Found shortest path from </span><span class="sc">{}</span><span class="st"> to </span><span class="sc">{}</span><span class="st"> with weight = </span><span class="sc">{}\n</span><span class="st">&quot;</span><span class="op">,</span> sourceVertex <span class="op">+</span> <span class="dv">1</span><span class="op">,</span> to <span class="op">+</span> <span class="dv">1</span><span class="op">,</span> newDistance<span class="op">);</span></span>
 <span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>                minHeap<span class="op">.</span>emplace<span class="op">(</span>edge<span class="op">.</span>to<span class="op">,</span> newDistance<span class="op">);</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>                minHeap<span class="op">.</span>emplace<span class="op">(</span>to<span class="op">,</span> newDistance<span class="op">);</span></span>
 <span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
 <span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>

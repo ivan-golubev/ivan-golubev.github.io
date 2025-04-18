@@ -2,6 +2,7 @@ author:
   - "Ivan Golubev"
 keywords:
   - "C++"
+  - "Rust"
 maxwidth: 48em
 fontsize: 22px
 mainfont: Verdana, sans-serif
